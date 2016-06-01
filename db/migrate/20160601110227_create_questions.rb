@@ -5,5 +5,6 @@ class CreateQuestions < ActiveRecord::Migration
       t.references :user
 
       t.timestamps null: false
+    end
   end
 end

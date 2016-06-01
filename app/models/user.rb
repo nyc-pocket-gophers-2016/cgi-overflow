@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 
-  validates :first_name, :last_name, :password, presence: true, length: { maximum: 1 }
+  validates :first_name, :password, presence: true, length: { maximum: 1 }
   validates :username, :email, presence: true, uniqueness: true, length: { maximum: 1 }
 
   has_many :questions

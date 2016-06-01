@@ -7,6 +7,8 @@ gem 'pg'
 gem 'sinatra'
 gem 'sinatra-contrib'
 
+gem 'pry'
+
 gem 'activesupport'
 gem 'activerecord'
 gem 'bcrypt-ruby'

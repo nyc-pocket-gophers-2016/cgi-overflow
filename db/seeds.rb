@@ -1,4 +1,3 @@
-
 users = [
   {first_name: 'Gregor',
    username: 'gregor',
@@ -28,7 +27,48 @@ questions=[
   user_id: 2}
 ]
 
+answers = [
+  {:answer => "Bubbles",
+   :best_answer => true,
+   :user_id => 1,
+   :question_id => 1},
+  {:answer => "Blossom",
+   :best_answer => false,
+   :user_id => 1,
+   :question_id => 1},
+  {:answer => "Buttercup",
+   :best_answer => false,
+   :user_id => 1,
+   :question_id => 1},
+  {:answer => "Sun",
+   :best_answer => false,
+   :user_id => 2,
+   :question_id => 2},
+  {:answer => "Moon",
+   :best_answer => false,
+   :user_id => 2,
+   :question_id => 2},
+  {:answer => "Earth",
+   :best_answer => true,
+   :user_id => 2,
+   :question_id => 2,
+  {:answer => "Zeus",
+   :best_answer => false,
+   :user_id => 3,
+   :question_id => 3},
+  {:answer => "Ares",
+   :best_answer => false,
+   :user_id => 3,
+   :question_id => 3},
+  {:answer => "Atlas",
+   :best_answer => true,
+   :user_id => 3,
+   :question_id => 3}
+]
+
+
+
 
 User.create(users)
 Question.create(questions)
-
+Answer.create!(answers)

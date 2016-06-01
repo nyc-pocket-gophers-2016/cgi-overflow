@@ -1,1 +1,5 @@
-<!-- HTML code for printing all the users next to eachother. -->
+<h2>Checkout out all our awesome users here:</h2>
+
+<% @users.each do |user|%>
+  <%= user.first_name%>
+<% end %>

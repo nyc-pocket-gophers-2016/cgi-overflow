@@ -9,20 +9,23 @@
 </head>
 
 <body>
+
+  <div class="fixedbar">
+    <div class="fixednav">
+      <%if logged_in?%>
+      <p><a class="headernames" href="/users/<%= (User.find(session['user_id'])).id %>"><% user.first_name%></a> <a class="headernames" href="/sessions/logout">Logout</a></p>
+      <% else %>
+      <p><a class="headernames" href="/register">Register</a> | <a class="headernames" href="/login">Login</a></p>
+      <% end %>
+  </div>
+
   <div class="title">
     <h1><a class="headernames" href="/">CGI Overflow</a></h1>
   </div>
 
   <nav>
-      <p class="navbar"><a class="headernames" href="/questions">Questions</a></p>
-      <p class="navbar"><a class="headernames" href="/users">Users</a> |</p>
-    <% if logged_in? %>
-      <p class="navbar"><a class="headernames" href="/sessions/logout">Logout</a> |</p>
-    <% else %> 
-      <p class="navbar"><a class="headernames" href="/sessions/login">Login</a> |</p>
-    <% end %>
-      <p class="navbar"><a class="headernames" href="/users/register">Register</a> |</p>
-      <p class="navbar"><a class="headernames" href="/">Home</a> |</p>
+      <p class="navbar">
+        <a class="headernames" href="/users">Users</a> | <a class="headernames" href="/">Home</a> | <a class="headernames" href="/questions">Questions</a></p>
   </nav>
 
   <div class="container">

@@ -7,11 +7,11 @@ get '/users/register' do
   erb :'users/register'
 end
 
-post '/users' do
+post '/users/register' do
   @user = User.new(params[:user])
   if @user.save
     session["user_id"] = @user.id
-    redirect "/login"
+    redirect "/sessions/login"
   else
     @errors = @user.errors.full_messages
     erb :"users/register"

@@ -1,8 +1,8 @@
-get '/login' do
+get '/sessions/login' do
   erb :'users/login'
 end
 
-post '/login' do
+post '/sessions/login' do
   user = User.find_by(username: params[:username])
   if user && user.authenticate(params[:password])
     session[:user_id] = user.id
@@ -13,7 +13,7 @@ post '/login' do
   end
 end
 
-get '/logout' do
+get '/sessions/logout' do
   session.clear
   redirect '/'
 end

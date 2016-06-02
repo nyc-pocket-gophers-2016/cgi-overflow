@@ -13,9 +13,9 @@
   <div class="fixedbar">
     <div class="fixednav">
       <%if logged_in?%>
-      <p><a class="headernames" href="/users/<%= (User.find(session['user_id'])).id %>"><% user.first_name%></a> <a class="headernames" href="/sessions/logout">Logout</a></p>
+      <p><a class="headernames" href="/users/<%= (User.find(session[:user_id])).id %>"><%= current_user.first_name%></a> | <a class="headernames" href="/logout">Logout</a></p>
       <% else %>
-      <p><a class="headernames" href="/register">Register</a> | <a class="headernames" href="/login">Login</a></p>
+      <p><a class="headernames" href="/users/new">Register</a> | <a class="headernames" href="/login">Login</a></p>
       <% end %>
   </div>
 

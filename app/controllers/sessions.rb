@@ -1,19 +1,19 @@
-get '/sessions/login' do
+get '/login' do
   erb :'users/login'
 end
 
-post '/sessions/login' do
+post '/login' do
   user = User.find_by(username: params[:username])
   if user && user.authenticate(params[:password])
     session[:user_id] = user.id
     redirect '/'
   else
-    @errors = "Bad log in, try again"
-    erb :"users/login"
+    @errors = ["Username or Password incorrect. Please try again."]
+    erb :"/users/login"
   end
 end
 
-get '/sessions/logout' do
+get '/logout' do
   session.clear
   redirect '/'
 end

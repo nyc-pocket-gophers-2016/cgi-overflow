@@ -20,6 +20,7 @@ post '/questions' do
   if @question.save #saves new question or returns false if unsuccessful
     redirect '/questions' #redirect back to questions index page
   else
+    @errors = @question.errors.full_messages
     erb :'questions/new' # show new questions view again(potentially displaying errors)
   end
 

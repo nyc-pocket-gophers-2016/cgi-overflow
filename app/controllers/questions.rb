@@ -15,10 +15,8 @@ get '/questions/new' do
 end
 
 post '/questions' do
-
   #below works with properly formatted params in HTML form
   @question = Question.new(params[:question]) #create new question
-
   if @question.save #saves new question or returns false if unsuccessful
     redirect '/questions' #redirect back to questions index page
   else

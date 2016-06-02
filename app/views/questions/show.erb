@@ -1,6 +1,15 @@
 <h1>Question: <%= @question.title %></h1>
 <p><%= @question.question %></p>
 <p>Written by <%= @question.user.first_name %> on <%= @question.created_at %></p>
+<%if @question.user.id == session[:user_id] %>
+	<form method="get" action="/questions/<%=@question.id%>/edit">
+		<input type="submit" value="edit my question">
+	</form>
+	<form method="post" action="/questions/<%=@question.id%>">
+		<input type="hidden" name="_method" value="delete">
+		<input type="submit" value="delete my question">
+	</form>
+<% end %>
 <p>Button for comments using jquery and ajax</p>
 <p>Button for answers using jquery and ajax</p>
 <p>------------------------------</p>

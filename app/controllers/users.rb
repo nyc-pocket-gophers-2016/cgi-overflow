@@ -3,11 +3,11 @@ get '/users' do
   erb :'users/index'
 end
 
-get '/users/register' do
+get '/users/new' do
   erb :'users/register'
 end
 
-post '/users/register' do
+post '/users' do
   @user = User.new(params[:user])
   if @user.save
     session["user_id"] = @user.id

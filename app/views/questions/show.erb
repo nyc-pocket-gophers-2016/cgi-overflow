@@ -1,21 +1,40 @@
 <h1>Question: <%= @question.title %></h1>
 <p><%= @question.question %></p>
 <p>Written by <%= @question.user.first_name %> on <%= @question.created_at %></p>
-<%if @question.user.id == session[:user_id] %>
+<p>------------------------------</p>
+
+<%if @question.user.id == session[:user_id]%>
 	<form method="get" action="/questions/<%=@question.id%>/edit">
 		<input type="submit" value="edit my question">
 	</form>
+
 	<form method="post" action="/questions/<%=@question.id%>">
 		<input type="hidden" name="_method" value="delete">
 		<input type="submit" value="delete my question">
 	</form>
+  <p>------------------------------</p>
+  <%elsif logged_in?%>
+  <form method="get" action="/questions/<%=@question.id%>/answers/new">
+    <input type="submit" value="Post your answer">
+  </form>
+  <p>------------------------------</p>
 <% end %>
-<p>Button for comments using jquery and ajax</p>
-<p>------------------------------</p>
+
 <h2>Answers</h2>
+
 <ul>
 <% @answers.each do |answer|%>
-  <li><%=answer.answer%> written by <%= answer.user.username %> button for comments</li>
+  <li><%=answer.answer%> written by <%= answer.user.username %></li>
+  <%if answer.user_id == session[:user_id]%>
+    <form method="get" action="/answers/<%=answer.id%>/edit">
+      <input type="submit" value="edit my answer">
+    </form>
+
+  <form method="post" action="/answers/<%=answer.id%>">
+    <input type="hidden" name="_method" value="delete">
+    <input type="submit" value="delete my answer">
+  </form>
+  <% end %>
 
 <%end%>
 </ul>

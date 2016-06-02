@@ -1,8 +1,6 @@
 get '/questions' do
-
   @questions = Question.all
   erb :'questions/index'
-
 end
 
 get '/questions/new' do
@@ -32,6 +30,7 @@ get '/questions/:id' do
 
   @question = Question.find(params[:id]) #define instance variable for view
   @answers = Answer.where(question_id: @question.id)
+
   erb :'questions/show' #show single question view
 
 end

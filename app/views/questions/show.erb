@@ -1,7 +1,6 @@
 <h1>Question: <%= @question.title %></h1>
 <p><%= @question.question %></p>
 <p>Written by <%= @question.user.first_name %> on <%= @question.created_at %></p>
-<p>------------------------------</p>
 
 <%if @question.user.id == session[:user_id]%>
 	<form method="get" action="/questions/<%=@question.id%>/edit">
@@ -14,6 +13,11 @@
 	</form>
   <p>------------------------------</p>
   <%elsif logged_in?%>
+  <a href="/questions/<%=@question.id%>/comments/new">Add a comment</a>
+    <%@question.comments.each do |comment|%>
+    <p><%= comment.comment%> by <%= comment.user.username%></p>
+    <% end %>
+  <p>------------------------------</p>
   <form method="get" action="/questions/<%=@question.id%>/answers/new">
     <input type="submit" value="Post your answer">
   </form>
@@ -35,6 +39,11 @@
     <input type="hidden" name="_method" value="delete">
     <input type="submit" value="delete my answer">
   </form>
+  <%else%>
+   <a href="/answers/<%=answer.id%>/comments/new">Add a comment</a>
+    <%answer.comments.each do |comment|%>
+    <p><%= comment.comment%> by <%= comment.user.username%></p>
+    <% end %>
   <% end %>
 
 <%end%>

@@ -1,0 +1,9 @@
+<h1> Questions index page </h1>
+<div>
+<a href="/questions/new">Post a new question!</a>
+<ul>
+<% @questions.each do |question| %>
+	<li><a href="/questions/<%=question.id%>"><%= question.title%></a></li>
+	<% end %>
+</ul>
+</div>

@@ -2,8 +2,10 @@
 <p>Here we show a list of the most recent questions</p>
 
 <% @questions.each do |question| %>
-  <article id="<%= question.id %>">
-    <h4><a href='/questions/<%= question.id %>'><%= question.title %></a></h4>
-      <a class="delete" href='/questions/<%= question.id %>'>delete</a>
-  </article>
+  <div class="question_container">
+    <div class="question_title">
+      <h4><a href='/questions/<%= question.id %>'><%= question.title %></a></h4>
+    </div>
+<!--       <a class="delete" href='/questions/<%= question.id %>'>delete</a>-->
+  </div>
 <% end %>

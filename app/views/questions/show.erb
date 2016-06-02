@@ -1,2 +1,13 @@
-<h1><%= @question.title %></h1>
+<h1>Question: <%= @question.title %></h1>
 <p><%= @question.question %></p>
+<p>Written by <%= @question.user.first_name %> on <%= @question.created_at %></p>
+<p>Button for comments using jquery and ajax</p>
+<p>Button for answers using jquery and ajax</p>
+<p>------------------------------</p>
+<h2>Answers</h2>
+<ul>
+<% @answers.each do |answer|%>
+  <li><%=answer.answer%> written by <%= answer.user.username %> button for comments</li>
+
+<%end%>
+</ul>

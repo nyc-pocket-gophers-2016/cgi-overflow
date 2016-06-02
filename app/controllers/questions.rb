@@ -6,9 +6,12 @@ get '/questions' do
 end
 
 get '/questions/new' do
-
-  erb :'questions/new'
-
+  if logged_in?
+    erb :'questions/new'
+  else
+    @errors = ["Please login to post a question."]
+    erb :"/users/login"
+  end
 end
 
 post '/questions' do
@@ -29,13 +32,14 @@ get '/questions/:id' do
   #gets params from url
 
   @question = Question.find(params[:id]) #define instance variable for view
-
+  @answers = Answer.where(question_id: @question.id)
   erb :'questions/show' #show single question view
 
 end
 
 get '/questions/:id/edit' do
 
+  @form_action = "/question/params[:id] "
   #get params from url
   @question = Question.find(params[:id]) #define intstance variable for view
 

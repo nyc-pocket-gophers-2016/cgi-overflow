@@ -1,3 +1,9 @@
-<p>Welcome to CGI Overflow</p>
-<p>This is our landing page</p>
+<h1>Welcome to CGI Overflow</h1>
 <p>Here we show a list of the most recent questions</p>
+
+<% @questions.each do |question| %>
+  <article id="<%= question.id %>">
+    <h4><a href='/questions/<%= question.id %>'><%= question.title %></a></h4>
+      <a class="delete" href='/questions/<%= question.id %>'>delete</a>
+  </article>
+<% end %>

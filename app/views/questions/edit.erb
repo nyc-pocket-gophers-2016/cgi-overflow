@@ -1,1 +1,10 @@
-<h1> Edit yo question! </h1>
+<h1> Edit your question! </h1>
+<form method="post" action="/questions/<%=@question.id%>">
+	<input type="hidden" name="_method" value="put">
+      <p><label name="title"/>Title</label></p>
+      <p><input name="question[title]" size="60" type="text" value="<%=@question.title%>"></p>
+      <p><label name="question"/>Question</label></p>
+      <p><textarea name="question[question]" rows="15" cols="60"><%=@question.question%></textarea></p>
+
+      <p><input type="submit" value="post your question" class="submit"></p>
+  </form>

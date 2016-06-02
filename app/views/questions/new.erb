@@ -2,7 +2,7 @@
 <form method="post" action="/questions">
       <p><label name="title"/>Title</label></p>
       <p><input name="question[title]" type="text" placeholder="place your title here"></p>
-
+      <input type="hidden" name="question[user_id]" value="<%= session[:user_id] %>">
       <p><label name="question"/>Question</label></p>
       <p><textarea name="question[question]" rows="15" cols="60" placeholder="place your question here"></textarea></p>
 

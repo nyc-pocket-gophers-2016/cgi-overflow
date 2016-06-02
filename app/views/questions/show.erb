@@ -24,7 +24,17 @@
 
 <ul>
 <% @answers.each do |answer|%>
-  <li><%=answer.answer%> written by <%= answer.user.username %> button for comments</li>
+  <li><%=answer.answer%> written by <%= answer.user.username %></li>
+  <%if answer.user_id == session[:user_id]%>
+    <form method="get" action="/answers/<%=answer.id%>/edit">
+      <input type="submit" value="edit my answer">
+    </form>
+
+  <form method="post" action="/answers/<%=answer.id%>">
+    <input type="hidden" name="_method" value="delete">
+    <input type="submit" value="delete my answer">
+  </form>
+  <% end %>
 
 <%end%>
 </ul>

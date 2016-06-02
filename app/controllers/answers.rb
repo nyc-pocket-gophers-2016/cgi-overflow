@@ -23,34 +23,34 @@ get '/answers/:id/edit' do
 
   @form_action = "/answers/params[:id] "
   #get params from url
-  @answers = Answer.find(params[:id]) #define intstance variable for view
+  @answer = Answer.find(params[:id]) #define intstance variable for view
 
   erb :'answers/edit' #show edit question view
 
 end
 
-# put '/questions/:id' do
+put '/answers/:id' do
 
-#   #get params from url
-#   @question = Question.find(params[:id]) #define variable to edit
+  #get params from url
+  @answer = Answer.find(params[:id]) #define variable to edit
 
-#   @question.assign_attributes(params[:question]) #assign new attributes
+  @answer.assign_attributes(params[:answer]) #assign new attributes
 
-#   if @question.save #saves new question or returns false if unsuccessful
-#     redirect '/questions' #redirect back to questions index page
-#   else
-#     erb :'questions/edit' #show edit question view again(potentially displaying errors)
-#   end
+  if @answer.save #saves new question or returns false if unsuccessful
+    redirect "/questions/#{@answer.question_id}" #redirect back to questions index page
+  else
+    erb :'answers/edit' #show edit question view again(potentially displaying errors)
+  end
 
-# end
+end
 
-# delete '/questions/:id' do
+delete '/answers/:id' do
 
-#   #get params from url
-#   @question = Question.find(params[:id]) #define question to delete
+  #get params from url
+  @answer = Answer.find(params[:id]) #define question to delete
 
-#   @question.destroy #delete question
+  @answer.destroy #delete question
 
-#   redirect '/questions' #redirect back to questions index page
+  redirect "/questions/#{@answer.question_id}" #redirect back to questions index page
 
-# end
+end

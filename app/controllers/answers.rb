@@ -1,7 +1,7 @@
 get '/questions/:question_id/answers/new' do
   @question = Question.find_by(id: params[:question_id])
  if logged_in?
-    erb :'answers/new'
+    erb :'/answers/new', layout: !request.xhr?
   else
     @errors = ["Please login to post an answer."]
     erb :"/users/login"
@@ -43,10 +43,14 @@ post '/questions/:id/answers' do
   answer.user_id = session[:user_id]
   answer.question_id = params[:id]
     if answer.save
-     redirect "/questions/#{answer.question.id}"
-   else
+      if request.xhr?
+        erb :'/answers/new', layout: false
+      else
+        redirect "/questions/#{answer.question.id}"
+      end
+    else
      erb :'/answers/new'
-   end
+    end
 end
 
 get '/answers/:id/edit' do

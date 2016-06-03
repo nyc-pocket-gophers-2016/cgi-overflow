@@ -30,16 +30,17 @@
     <%@question.comments.each do |comment|%>
     <p><%= comment.comment%> by <%= comment.user.username%></p>
     <% end %>
-  <p>------------------------------</p>
-  <form method="get" action="/questions/<%=@question.id%>/answers/new">
+  <p class = "answer_container">------------------------------</p>
+  <div class="answer_url" data-url="/questions/<%=@question.id%>/answers/new">
+  <form class="answer_form" method="get" action="/questions/<%=@question.id%>/answers/new">
     <input type="submit" value="Post your answer">
   </form>
+  </div>
   <p>------------------------------</p>
 
 <% end %>
 
 <h2>Answers</h2>
-
 <ul>
 <% @answers.each do |answer|%>
   <li><%=answer.answer%> written by <%= answer.user.username %></li>

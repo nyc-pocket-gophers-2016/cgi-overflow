@@ -16,9 +16,9 @@ users = [
 ]
 
 questions=[
-  {title: "how do I make a lot of money?",
+  {title: "how does AJAX work?",
   user_id: 1,
-  question: "I was wondering if I should get a job or maybe I should just start a business. Help me decide"},
+  question: "We are working on a project and I would like to use Ajax, who can explain to me how it works?"},
 
   {title: "why are ruby coders in demand?",
   question: "I have heard that ruby sucks but I keep seeing ruby jobs online. What's up with that?",

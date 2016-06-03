@@ -1,7 +1,8 @@
 <div class=".post-container">
-  <h1>Question: <%= @question.title %></h1>
+  <h2>Question: <%= @question.title %></h2>
   <p><%= @question.question %></p>
   <p>Written by <%= @question.user.first_name %> on <%= @question.created_at %></p>
+  <p>Points: <%=@question.votes.sum(:vote_value)%></p>
 
   <%if @question.user.id == session[:user_id]%>
     <form method="get" action="/questions/<%=@question.id%>/edit">
@@ -28,7 +29,17 @@
     </form>
 
     <%@question.comments.each do |comment|%>
-    <p><%= comment.comment%> by <%= comment.user.username%></p>
+     <p>------------------------------</p>
+      <p>Comment: <%= comment.comment%> by <%= comment.user.username%>. Points: <%=comment.votes.sum(:vote_value)%></p>
+      <%if comment.user_id != session[:user_id]%>
+        <form action="/comments/<%= comment.id %>/upvote" method="post">
+          <input type="submit" value="Upvote" width="100" class="upvote">
+        </form>
+
+        <form action="/comments/<%= comment.id %>/downvote" method="post">
+          <input type="submit" value="Downvote" width="100" class="downvote">
+        </form>
+      <% end %>
     <% end %>
   <p class = "answer_container">------------------------------</p>
   <div class="answer_url" data-url="/questions/<%=@question.id%>/answers/new">
@@ -44,22 +55,34 @@
 <ul>
 <% @answers.each do |answer|%>
   <li><%=answer.answer%> written by <%= answer.user.username %></li>
+  <p>Points: <%=answer.votes.sum(:vote_value)%></p>
+
   <%if answer.user_id == session[:user_id]%>
     <form method="get" action="/answers/<%=answer.id%>/edit">
       <input type="submit" value="edit my answer">
     </form>
 
-  <form method="post" action="/answers/<%=answer.id%>">
-    <input type="hidden" name="_method" value="delete">
-    <input type="submit" value="delete my answer">
-  </form>
+    <form method="post" action="/answers/<%=answer.id%>">
+      <input type="hidden" name="_method" value="delete">
+      <input type="submit" value="delete my answer">
+    </form>
   <%else%>
-   <a href="/answers/<%=answer.id%>/comments/new">Add a comment</a>
-    <%answer.comments.each do |comment|%>
-    <p><%= comment.comment%> by <%= comment.user.username%></p>
-    <% end %>
+    <form action="/answers/<%= answer.id %>/upvote" method="post">
+      <input type="submit" value="Upvote" width="100" class="upvote">
+    </form>
+
+    <form action="/answers/<%= answer.id %>/downvote" method="post">
+      <input type="submit" value="Downvote" width="100" class="downvote">
+    </form>
+
   <% end %>
 
+    <a href="/answers/<%=answer.id%>/comments/new">Add a comment</a>
+    <%answer.comments.each do |comment|%>
+      <p>Comment: <%= comment.comment%> by <%= comment.user.username%></p>
+
+    <% end %>
+<p>------------------------------</p>
 <%end%>
 </ul>
 </div>

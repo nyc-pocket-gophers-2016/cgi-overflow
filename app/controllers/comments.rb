@@ -31,3 +31,34 @@ post '/answers/:id/comments' do
       erb :'comments/answer-comments'
     end
 end
+
+post '/comments/:id/up_votes' do
+  @comment = Comment.find_by(params[:question_id])
+  @question = Question.find_by(params[:question_id])
+  @up_vote = @comment.votes.new(vote_value: + 1, user_id: current_user.id)
+  if @up_vote.save
+    if request.xhr?
+      @comment.votes.sum(:vote_value).to_s
+    else
+      redirect "/questions/#{@question.id}"
+    end
+  else
+    erb :'/question/show'
+  end
+end
+
+post '/comments/:id/down_votes' do
+  @question = Question.find_by(params[:question_id])
+  @comment = Comment.find_by( id: params[:id])
+  # binding.pry
+  @down_vote = @comment.votes.new(vote_value: - 1, user_id: current_user.id)
+  if @down_vote.save
+    if request.xhr?
+      @comment.votes.sum(:vote_value).to_s
+    else
+      redirect "/questions/#{@question.id}"
+    end
+  else
+    erb :'/question/show'
+  end
+end

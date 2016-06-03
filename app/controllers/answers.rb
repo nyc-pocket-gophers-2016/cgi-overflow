@@ -8,6 +8,36 @@ get '/questions/:question_id/answers/new' do
   end
 end
 
+post '/answers/:id/upvote' do
+  @answer = Answer.find_by( id: params[:id])
+  @up_vote = @answer.votes.new(vote_value: + 1, user_id: current_user.id)
+  if @up_vote.save
+    if request.xhr?
+      @answer.votes.sum(:count).to_s
+    else
+      redirect "/questions/#{@answer.question.id}"
+    end
+  else
+    erb :'/question/show'
+  end
+end
+
+post '/answers/:id/down_votes' do
+  @question = Question.find_by( id: params[:id])
+  @answer = Answer.find_by( id: params[:id])
+  @down_vote = @answer.votes.new(vote_value: - 1, user_id: current_user.id)
+  if @down_vote.save
+    if request.xhr?
+      @answer.votes.sum(:count).to_s
+    else
+      redirect "/questions/#{@answer.question.id}"
+    end
+  else
+    erb :'/question/show'
+  end
+end
+
+
 post '/questions/:id/answers' do
   answer = Answer.new(params[:answer])
   answer.user_id = session[:user_id]
@@ -29,7 +59,7 @@ get '/answers/:id/edit' do
 
 end
 
-put '/answers/:id' do
+put '/question/:id/answers' do
 
   #get params from url
   @answer = Answer.find(params[:id]) #define variable to edit

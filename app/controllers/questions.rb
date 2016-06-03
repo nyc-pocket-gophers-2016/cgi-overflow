@@ -21,22 +21,17 @@ post '/questions' do
     @errors = @question.errors.full_messages
     erb :'questions/new' # show new questions view again(potentially displaying errors)
   end
-
 end
 
 get '/questions/:id' do
-
   #gets params from url
-
   @question = Question.find(params[:id]) #define instance variable for view
   @answers = Answer.where(question_id: @question.id)
 
   erb :'questions/show' #show single question view
-
 end
 
 get '/questions/:id/edit' do
-
   @form_action = "/question/params[:id] "
   #get params from url
   @question = Question.find(params[:id]) #define intstance variable for view
@@ -46,10 +41,8 @@ get '/questions/:id/edit' do
 end
 
 put '/questions/:id' do
-
   #get params from url
   @question = Question.find(params[:id]) #define variable to edit
-
   @question.assign_attributes(params[:question]) #assign new attributes
 
   if @question.save #saves new question or returns false if unsuccessful
@@ -61,13 +54,37 @@ put '/questions/:id' do
 end
 
 delete '/questions/:id' do
-
   #get params from url
   @question = Question.find(params[:id]) #define question to delete
-
   @question.destroy #delete question
-
   redirect '/questions' #redirect back to questions index page
+end
 
+post '/questions/:id/upvote' do
+  @question = Question.find(params[:id])
+  @upvote = @question.votes.build(vote_value: + 1, user_id: current_user.id)
+  if @upvote.save
+    if request.xhr?
+      @comment.votes.sum(:count).to_s
+    else
+      redirect "/questions/#{@question.id}"
+    end
+  else
+    erb :'/question/show'
+  end
+end
+
+post '/questions/:id/downvote' do
+  @question = Question.find(params[:id])
+  @downvote = @question.votes.build(vote_value: - 1, user_id: current_user.id)
+  if @downvote.save
+    if request.xhr?
+      @comment.votes.sum(:count).to_s
+    else
+      redirect "/questions/#{@question.id}"
+    end
+  else
+    erb :'/question/show'
+  end
 end
 

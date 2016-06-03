@@ -62,10 +62,10 @@ end
 
 post '/questions/:id/upvote' do
   @question = Question.find(params[:id])
-  @upvote = @question.votes.build(vote_value: + 1, user_id: current_user.id)
+  @upvote = @question.votes.build(vote_value: 1, user_id: current_user.id)
   if @upvote.save
     if request.xhr?
-      @comment.votes.sum(:count).to_s
+      @question.votes.sum(:vote_value).to_s
     else
       redirect "/questions/#{@question.id}"
     end
@@ -79,7 +79,7 @@ post '/questions/:id/downvote' do
   @downvote = @question.votes.build(vote_value: - 1, user_id: current_user.id)
   if @downvote.save
     if request.xhr?
-      @comment.votes.sum(:count).to_s
+      @question.votes.sum(:vote_value).to_s
     else
       redirect "/questions/#{@question.id}"
     end

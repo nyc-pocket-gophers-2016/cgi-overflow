@@ -17,10 +17,10 @@
   <% end %>
 
 <h3>Your comments:</h3>
-<%@user.comments.each do |answer|%>
+<%@user.comments.each do |comment|%>
   <p>
-    <a href="/comments/<%=comment.id%>" class="">Question: <%= answer.question.title%></a>
+    <a href="/comments/<%=comment.id%>" class="">Question: <%= @questions.find_by(id: comment.commentable_id).title%></a>
   </p>
-  <p>Answer: <%= answer.answer%></p>
+  <p>Comment: <%= comment.comment%></p>
   <p>------------------------------------</p>
   <% end %>

@@ -32,11 +32,11 @@ post '/answers/:id/comments' do
     end
 end
 
-post '/comments/:id/up_votes' do
-  @comment = Comment.find_by(params[:question_id])
+post '/comments/:id/upvote' do
   @question = Question.find_by(params[:question_id])
-  @up_vote = @comment.votes.new(vote_value: + 1, user_id: current_user.id)
-  if @up_vote.save
+  @comment = Comment.find_by(id: params[:id])
+  @upvote = @comment.votes.build(vote_value: 1, user_id: current_user.id)
+  if @upvote.save
     if request.xhr?
       @comment.votes.sum(:vote_value).to_s
     else
@@ -47,12 +47,11 @@ post '/comments/:id/up_votes' do
   end
 end
 
-post '/comments/:id/down_votes' do
+post '/comments/:id/downvote' do
   @question = Question.find_by(params[:question_id])
   @comment = Comment.find_by( id: params[:id])
-  # binding.pry
-  @down_vote = @comment.votes.new(vote_value: - 1, user_id: current_user.id)
-  if @down_vote.save
+  @downvote = @comment.votes.build(vote_value: - 1, user_id: current_user.id)
+  if @downvote.save
     if request.xhr?
       @comment.votes.sum(:vote_value).to_s
     else

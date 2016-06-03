@@ -10,10 +10,10 @@ end
 
 post '/answers/:id/upvote' do
   @answer = Answer.find_by( id: params[:id])
-  @up_vote = @answer.votes.new(vote_value: + 1, user_id: current_user.id)
-  if @up_vote.save
+  @upvote = @answer.votes.build(vote_value: + 1, user_id: current_user.id)
+  if @upvote.save
     if request.xhr?
-      @answer.votes.sum(:count).to_s
+      @answer.votes.sum(:vote_value).to_s
     else
       redirect "/questions/#{@answer.question.id}"
     end
@@ -22,13 +22,13 @@ post '/answers/:id/upvote' do
   end
 end
 
-post '/answers/:id/down_votes' do
+post '/answers/:id/downvote' do
   @question = Question.find_by( id: params[:id])
   @answer = Answer.find_by( id: params[:id])
-  @down_vote = @answer.votes.new(vote_value: - 1, user_id: current_user.id)
-  if @down_vote.save
+  @downvote = @answer.votes.build(vote_value: - 1, user_id: current_user.id)
+  if @downvote.save
     if request.xhr?
-      @answer.votes.sum(:count).to_s
+      @answer.votes.sum(:vote_value).to_s
     else
       redirect "/questions/#{@answer.question.id}"
     end

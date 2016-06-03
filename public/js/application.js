@@ -13,7 +13,7 @@ $(document).ready(function() {
     var reqObj = $.ajax(reqArgs)
     reqObj.done(function(response){
       $vote_happens.parent().parent().find("p > .points").html(response);
-      $vote_happens.css("color", "green");
+
     })
   });
 

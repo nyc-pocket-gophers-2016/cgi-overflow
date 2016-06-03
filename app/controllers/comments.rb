@@ -61,3 +61,7 @@ post '/comments/:id/downvote' do
     erb :'/question/show'
   end
 end
+
+get '/comments/:id' do
+  erb :'404'
+end

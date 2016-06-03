@@ -1,37 +1,75 @@
 $(document).ready(function() {
-  $(".post-container").on("click", ".upvote", function(event) {
+  $(".post-container").on("submit", ".upvote_question", function(event) {
     event.preventDefault();
 
-    var $vote_happens = $(event.target)
-
+    var $events = $(event.target)
     var reqArgs = {
-      url: $vote_happens.parent().attr("action"),
+      url: $events.attr("action"),
       method: 'post',
-      data: undefined,
+      data: $events.serialize(),
       dataType: 'html'
     };
     var reqObj = $.ajax(reqArgs)
     reqObj.done(function(response){
-      $vote_happens.parent().parent().find("p > .points").html(response);
-
+      $events.parent().find(".question_points").html('<p class="question_points">Points: ' +response+ '</p>');
     })
   });
 
-  $(".post-container").on("click", ".downvote", function(event) {
+
+  $(".post-container").on("submit", ".downvote_question", function(event) {
     event.preventDefault();
 
-    var $vote_happens = $(event.target)
+    var $events = $(event.target)
 
     var reqArgs = {
-      url: $vote_happens.parent().attr("action"),
+      url: $events.attr("action"),
       method: 'post',
       data: undefined,
       dataType: 'html'
     };
     var reqObj = $.ajax(reqArgs)
     reqObj.done(function(response){
-      $vote_happens.parent().parent().find("p > .points").html(response);
-      $vote_happens.css("color", "red");
+      $events.parent().find(".question_points").html('<p class="question_points">Points: ' +response+ '</p>');
+    })
+  });
+});
+
+
+$(document).ready(function() {
+  $(".post-container").on("submit", ".upvote_answer", function(event) {
+    event.preventDefault();
+
+    var $events = $(event.target)
+    var reqArgs = {
+      url: $events.attr("action"),
+      method: 'post',
+      data: $events.serialize(),
+      dataType: 'html'
+    };
+
+    var reqObj = $.ajax(reqArgs)
+    reqObj.done(function(response){
+      $events.parent().find(".answer_points").html('<p class="answer_points">Points: ' +response+ '</p>');
+    })
+  });
+
+
+
+
+  $(".post-container").on("submit", ".downvote_answer", function(event) {
+    event.preventDefault();
+
+    var $events = $(event.target)
+
+    var reqArgs = {
+      url: $events.attr("action"),
+      method: 'post',
+      data: $events.serialize(),
+      dataType: 'html'
+    };
+    var reqObj = $.ajax(reqArgs)
+    reqObj.done(function(response){
+      $events.parent().find(".answer_points").html('<p class="answer_points">Points: ' +response+ '</p>');
     })
   });
 });

@@ -80,12 +80,14 @@ put '/question/:id/answers' do
 end
 
 delete '/answers/:id' do
-
   #get params from url
   @answer = Answer.find(params[:id]) #define question to delete
 
   @answer.destroy #delete question
 
   redirect "/questions/#{@answer.question_id}" #redirect back to questions index page
+end
 
+get '/answer/:id' do
+  erb :'404'
 end

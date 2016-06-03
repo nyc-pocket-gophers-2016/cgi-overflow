@@ -25,10 +25,13 @@ end
 
 get '/questions/:id' do
   #gets params from url
-  @question = Question.find(params[:id]) #define instance variable for view
-  @answers = Answer.where(question_id: @question.id)
-
-  erb :'questions/show' #show single question view
+  @question = Question.find_by(id: params[:id]) #define instance variable for view
+  if @question
+    @answers = Answer.where(question_id: @question.id)
+    erb :'questions/show' #show single question view
+  else
+    erb :'404'
+  end
 end
 
 get '/questions/:id/edit' do

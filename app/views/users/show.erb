@@ -2,7 +2,7 @@
 
 <h3>Your questions:</h3>
   <%@user.questions.each do |question|%>
-  <p><a href="/questions/<%=question.id%>" class="">Title: <%= question.title%></a></p>
+  <p><a href="/questions/<%=question.id%>">Title: <%= question.title%></a></p>
   <p>Question: <%= question.question%></p>
   <p>------------------------------------</p>
   <% end %>
@@ -10,7 +10,7 @@
 <h3>Your answers:</h3>
 <%@user.answers.each do |answer|%>
   <p>
-    <a href="/answers/<%=answer.id%>" class="">Question: <%= answer.question.title%></a>
+    <a href="/questions/<%=answer.question_id%>">Question: <%= answer.question.title%></a>
   </p>
   <p>Answer: <%= answer.answer%></p>
   <p>------------------------------------</p>
@@ -19,7 +19,7 @@
 <h3>Your comments:</h3>
 <%@user.comments.each do |comment|%>
   <p>
-    <a href="/comments/<%=comment.id%>" class="">Question: <%= @questions.find_by(id: comment.commentable_id).title%></a>
+    <a href="/questions/<%=@questions.find_by(id: comment.commentable_id).id%>">Question: <%= @questions.find_by(id: comment.commentable_id).title%></a>
   </p>
   <p>Comment: <%= comment.comment%></p>
   <p>------------------------------------</p>

@@ -51,23 +51,17 @@ $(function() {
     });
 
   });
+  $('.answer_container').on('submit', '.form', function(event){    event.preventDefault();
 
-  $('.answer_container').on('submit', '.answer_form', function(event){
-    event.preventDefault();
-
-    var url = $(this).attr('action');
-
-    var data = $(this).serialize();
-
-    $.post(url, data, function(response){
-      $('li').append(response);
-
+    var $target = event.target;
+    $.ajax({
+      url: $target.action,
+      type: $target.method,
+      data: $($target).serialize()
+    }).done(function(response){
+        $('ul').append(response);
     });
-    $(this).remove();
 
-    $('h1').remove();
-
-    $('.answer_form').show();
 
   });
 

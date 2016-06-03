@@ -39,14 +39,15 @@ end
 
 
 post '/questions/:id/answers' do
-  answer = Answer.new(params[:answer])
-  answer.user_id = session[:user_id]
-  answer.question_id = params[:id]
-    if answer.save
+  @question = Question.find_by( id: params[:id])
+  @answer = Answer.new(params[:answer])
+  @answer.user_id = session[:user_id]
+  @answer.question_id = params[:id]
+    if @answer.save
       if request.xhr?
-        erb :'/answers/new', layout: false
+        erb :'/answers/_answer', layout: false, locals: { answer: @answer}
       else
-        redirect "/questions/#{answer.question.id}"
+        redirect "/questions/#{@answer.question.id}"
       end
     else
      erb :'/answers/new'

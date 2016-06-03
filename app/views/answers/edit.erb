@@ -1,0 +1,9 @@
+<h1> Edit your Answer! </h1>
+<form method="post" action="/question/<%= @answer.question_id %>/answers">
+  <input type="hidden" name="_method" value="put">
+
+  <p><label name="answer"/>Answer</label></p>
+  <p><textarea name="answer[answer]" rows="15" cols="60" placeholder="place your answer here"><%= @answer.answer%></textarea></p>
+
+  <input type="submit" value="post your answer" class="submit">
+</form>

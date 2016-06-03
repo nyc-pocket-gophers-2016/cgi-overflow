@@ -1,7 +1,37 @@
 $(document).ready(function() {
-  // This is called after the document has loaded in its entirety
-  // This guarantees that any elements we bind to will exist on the page
-  // when we try to bind to them
+  $(".post-container").on("click", ".upvote", function(event) {
+    event.preventDefault();
 
-  // See: http://docs.jquery.com/Tutorials:Introducing_$(document).ready()
+    var $vote_happens = $(event.target)
+
+    var reqArgs = {
+      url: $vote_happens.parent().attr("action"),
+      method: 'post',
+      data: undefined,
+      dataType: 'html'
+    };
+    var reqObj = $.ajax(reqArgs)
+    reqObj.done(function(response){
+      $vote_happens.parent().parent().find("p > .points").html(response);
+      $vote_happens.css("color", "green");
+    })
+  });
+
+  $(".post-container").on("click", ".downvote", function(event) {
+    event.preventDefault();
+
+    var $vote_happens = $(event.target)
+
+    var reqArgs = {
+      url: $vote_happens.parent().attr("action"),
+      method: 'post',
+      data: undefined,
+      dataType: 'html'
+    };
+    var reqObj = $.ajax(reqArgs)
+    reqObj.done(function(response){
+      $vote_happens.parent().parent().find("p > .points").html(response);
+      $vote_happens.css("color", "red");
+    })
+  });
 });

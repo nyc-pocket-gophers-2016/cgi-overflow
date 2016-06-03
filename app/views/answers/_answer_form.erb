@@ -1,5 +1,5 @@
 <h1> Post your Answer! </h1>
-<form method="post" action="/questions/<%= @question.id %>/answers">
+<form class="form" method="post" action="/questions/<%= @question.id %>/answers">
   <label name="answer"/>Answer</label><br>
     <p><textarea name="answer[answer]" rows="15" cols="60" placeholder="place your answer here"></textarea></p>
     <input type="submit" value="post your answer" class="submit">

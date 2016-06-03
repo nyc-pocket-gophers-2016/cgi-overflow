@@ -1,1 +1,15 @@
-<li><%= answer.answer%> by <%= answer.user.username%></li>
+<li><%= answer.answer%> written by <%= answer.user.username%></li>
+  <p>Points: <%=answer.votes.sum(:vote_value)%></p>
+ <form action="/answers/<%= answer.id %>/upvote" method="post">
+      <input type="submit" value="Upvote" width="100" class="upvote">
+    </form>
+
+    <form action="/answers/<%= answer.id %>/downvote" method="post">
+      <input type="submit" value="Downvote" width="100" class="downvote">
+    </form>
+     <a href="/answers/<%=answer.id%>/comments/new">Add a comment</a>
+      <%answer.comments.each do |comment|%>
+      <p>Comment: <%= comment.comment%> by <%= comment.user.username%></p>
+
+     <% end %>
+<p>------------------------------</p>

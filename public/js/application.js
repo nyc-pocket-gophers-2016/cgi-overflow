@@ -59,7 +59,9 @@ $(function() {
       type: $target.method,
       data: $($target).serialize()
     }).done(function(response){
-        $('ul').append(response);
+        $('ul').prepend(response);
+        $('.form').remove();
+        $('.answer_form_heading').remove();
     });
 
 

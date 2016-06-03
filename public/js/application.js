@@ -155,7 +155,7 @@ $('#answer-list').on('submit','#answer-comment-form',function(event){
       data: $target.serialize(),
       dataType: 'html'
     }).done(function(response){
-      $target.parent().append(response);
+      $target.parent().append("<p>" + response+ "</p>");
       $target.remove();
     })
   });

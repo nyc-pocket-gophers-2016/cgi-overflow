@@ -43,6 +43,7 @@
         </form>
       <% end %>
     <% end %>
+    </div>
 
   <p class = "answer_container">------------------------------</p>
   <div class="answer_url" data-url="/questions/<%=@question.id%>/answers/new">
@@ -82,9 +83,9 @@
       </form>
 
     <% end %>
-    </div>
 
       <a href="/answers/<%=answer.id%>/comments/new" class="comment-link">Add a comment</a>
+    </div>
       <%answer.comments.each do |comment|%>
         <p>Comment: <%= comment.comment%> by <%= comment.user.username%></p>
 
